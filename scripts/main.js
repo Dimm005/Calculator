@@ -22,6 +22,7 @@ function numToArr (number) {
         return array;
     };
     let array1 = [];
+
     for (let i = 0; i < numberOfDigits; i++) {
         array1.push(array[i]);
     };
@@ -52,8 +53,32 @@ function calculate (num1, num2, oper) {
 
 // Display number
 function displayNumber (number) {
-    let string = numToArr(number).join(""); // use function to limit digits number
+    number = roundNumber(number);
+    let string = "";
+    if (isNaN(number)) {
+        string = "ERROR"
+    } else {
+        string = number.toString(); 
+    };
     let display = document.getElementById("display");
     display.textContent = string;
-}
+}; 
 
+// Round number to max number of digits
+function roundNumber (number) {
+    let maxDisplayedNumber = ""; // Caculate maximum number we can display
+    for (let j = 0; j < numberOfDigits; j++) {
+        maxDisplayedNumber += "9";
+    };
+    maxDisplayedNumber = parseInt(maxDisplayedNumber);
+
+    let array = number.toString().split("");
+    let i = array.findIndex((element) => element == ".");
+    let tens = Math.pow(10, numberOfDigits - i - 1);
+    number = number * tens;
+    number = Math.round(number) / tens;
+    if (number > maxDisplayedNumber) {
+        return NaN;
+    };
+    return number;
+};
