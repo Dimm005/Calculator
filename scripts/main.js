@@ -1,5 +1,6 @@
 // Global constants and variables
 const numberOfDigits = 8; 
+var display = document.getElementById("display");
 var numberOne = [];
 var numberTwo = [];
 var numberInputArray = [];
@@ -65,7 +66,6 @@ function displayNumber (number) {
     } else {
         string = number.toString(); 
     };
-    let display = document.getElementById("display");
     display.textContent = string;
 }; 
 
@@ -125,12 +125,17 @@ function onclickDigitEvent () {
 
 // Operator buttons event function
 function onclickOperatorEvent () {
-    // console.log(this.id);
     if (this.id == "*=") {
+        if (numberTwo.length != 0) {
+            return;
+        };
         let number = arrToNum(numberOne);
         number = calculate(number, 0, "*=");
         displayNumber(number);
         numberOne = [];
         return;
     };
-}
+    numberMarker = 2;
+    operator = this.id;
+    display.textContent = operator;
+};
