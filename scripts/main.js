@@ -1,10 +1,18 @@
 // Global constants and variables
 const numberOfDigits = 8; 
-var number_one = null;
-var number_two = null;
-var operator = null;
+var numberOne = [];
+var numberTwo = [];
+var numberInputArray = [];
+var numberMarker = 1; // shows what number we are working with, One or Two
+var operator = "";
 var result = null;
 var memory = null;
+
+// Add event listeners to digit buttons
+const digitButtons = document.querySelectorAll(".digit");
+digitButtons.forEach((digitButton) => {
+    digitButton.addEventListener("click", onclickButtonEvent);
+});
 
 // Transform array into number
 function arrToNum (array) {
@@ -82,4 +90,24 @@ function roundNumber (number) {
         return NaN;
     };
     return number * signMarker;
+};
+
+// Button event funcions
+function onclickButtonEvent () {
+    // console.log(this.id)
+    // console.log(numberInputArray)
+    switch (numberMarker) {
+        case 1:
+            if (numberOne.length < numberOfDigits) {
+                numberOne.push(this.id);
+            };
+            break;
+        case 2:
+            if (numberTwo.length < numberOfDigits) {
+                numberTwo.push(this.id)
+            };
+            break;
+    };
+    console.log(numberOne);
+    console.log(numberTwo);
 };
