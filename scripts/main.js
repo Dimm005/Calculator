@@ -6,27 +6,19 @@ var operator = null;
 var result = null;
 var memory = null;
 
-// Transform array into number, length is limited by numberOfDigits
+// Transform array into number
 function arrToNum (array) {
     let string = array.join("");
     return roundNumber(parseFloat(string));
     };
 
-// Transorm number into array, length is limited by 8 numberOfDigits
+// Transorm number into array
 function numToArr (number) {
-    let array = number.toString().split("");
-    if (array.length <= numberOfDigits) { 
-        return array;
+    number = roundNumber(number);
+    if (isNaN(number)) {
+        return [];
     };
-    let array1 = [];
-
-    for (let i = 0; i < numberOfDigits; i++) {
-        array1.push(array[i]);
-    };
-    if (array1[array1.length - 1] === ".") {    // delete "." in the end
-        array1.pop();
-    };
-    return array1;
+    return number.toString().split("");
 };
 
 // Calculating fuction, return Nan in case of error
@@ -65,20 +57,25 @@ function displayNumber (number) {
 
 // Round number to max number of digits (or return ERROR)
 function roundNumber (number) {
-    let maxDisplayedNumber = ""; // Caculate maximum number we can display
+    let maxDisplayedNumber = ""; // maximum number we can display
     let signMarker = 1; // is a number positive or negative
+    let jMax = 0; // for negative numbers cycle should be 1 step shorter
     if (number < 0) {
         signMarker = -1;
         number *= signMarker; // make a number positive
+        jMax = numberOfDigits - 1;
+    } else {
+        jMax = numberOfDigits;
     };
-    for (let j = 0; j < numberOfDigits; j++) {
+
+    for (let j = 0; j < jMax; j++) {
         maxDisplayedNumber += "9";
     };
     maxDisplayedNumber = parseInt(maxDisplayedNumber);
 
     let array = number.toString().split("");
     let i = array.findIndex((element) => element == ".");
-    let tens = Math.pow(10, numberOfDigits - i - 1);
+    let tens = Math.pow(10, jMax - i - 1);
     number = number * tens;
     number = Math.round(number) / tens;
     if (number > maxDisplayedNumber) {
