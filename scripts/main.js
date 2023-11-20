@@ -67,6 +67,11 @@ function displayNumber (number) {
 // Round number to max number of digits
 function roundNumber (number) {
     let maxDisplayedNumber = ""; // Caculate maximum number we can display
+    let signMarker = 1; // is a number positive or negative
+    if (number < 0) {
+        signMarker = -1;
+        number *= signMarker; // make a number positive
+    };
     for (let j = 0; j < numberOfDigits; j++) {
         maxDisplayedNumber += "9";
     };
@@ -80,5 +85,5 @@ function roundNumber (number) {
     if (number > maxDisplayedNumber) {
         return NaN;
     };
-    return number;
+    return number * signMarker;
 };
