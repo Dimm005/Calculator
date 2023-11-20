@@ -11,7 +11,13 @@ var memory = null;
 // Add event listeners to digit buttons
 const digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach((digitButton) => {
-    digitButton.addEventListener("click", onclickButtonEvent);
+    digitButton.addEventListener("click", onclickDigitEvent);
+});
+
+// Add event listeners to operator buttons
+const operatorButtons = document.querySelectorAll(".operator");
+operatorButtons.forEach((operatorButton) => {
+    operatorButton.addEventListener("click", onclickOperatorEvent);
 });
 
 // Transform array into number
@@ -44,7 +50,7 @@ function calculate (num1, num2, oper) {
             };
             return NaN;
         case "*=":
-            return Math.pow(num1, num2)
+            return Math.pow(num1, 2)
         default:
             return NaN;
     };
@@ -92,22 +98,39 @@ function roundNumber (number) {
     return number * signMarker;
 };
 
-// Button event funcions
-function onclickButtonEvent () {
-    // console.log(this.id)
-    // console.log(numberInputArray)
+// Digit buttons event funcion
+function onclickDigitEvent () {
     switch (numberMarker) {
         case 1:
             if (numberOne.length < numberOfDigits) {
+                if (numberOne[0] == "0") {
+                    numberOne.pop();
+                };
                 numberOne.push(this.id);
             };
+            displayNumber(arrToNum(numberOne));
             break;
         case 2:
             if (numberTwo.length < numberOfDigits) {
+                if (numberTwo[0] == "0") {
+                    numberTwo.pop();
+                };
                 numberTwo.push(this.id)
             };
+            displayNumber(arrToNum(numberTwo));
             break;
     };
-    console.log(numberOne);
-    console.log(numberTwo);
+
 };
+
+// Operator buttons event function
+function onclickOperatorEvent () {
+    // console.log(this.id);
+    if (this.id == "*=") {
+        let number = arrToNum(numberOne);
+        number = calculate(number, 0, "*=");
+        displayNumber(number);
+        numberOne = [];
+        return;
+    };
+}
