@@ -8,11 +8,8 @@ var memory = null;
 
 // Transform array into number, length is limited by numberOfDigits
 function arrToNum (array) {
-    let string = "";
-    for (let i = 0; i < numberOfDigits; i++) {
-            string += array[i];
-        };
-    return parseFloat(string);
+    let string = array.join("");
+    return roundNumber(parseFloat(string));
     };
 
 // Transorm number into array, length is limited by 8 numberOfDigits
@@ -46,6 +43,8 @@ function calculate (num1, num2, oper) {
                 return num1 / num2;
             };
             return NaN;
+        case "*=":
+            return Math.pow(num1, num2)
         default:
             return NaN;
     };
@@ -64,7 +63,7 @@ function displayNumber (number) {
     display.textContent = string;
 }; 
 
-// Round number to max number of digits
+// Round number to max number of digits (or return ERROR)
 function roundNumber (number) {
     let maxDisplayedNumber = ""; // Caculate maximum number we can display
     let signMarker = 1; // is a number positive or negative
