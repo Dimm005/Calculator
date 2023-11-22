@@ -30,6 +30,9 @@ equalButton.addEventListener("click", onclickEqualEvent);
 // Transform array into number
 function arrToNum (array) {
     let string = array.join("");
+    if (string == ".") {
+        string = "0.0";
+    };
     return roundNumber(parseFloat(string));
     };
 
@@ -154,20 +157,20 @@ function onclickOperatorEvent () {
 
 // Equal button event function
 function onclickEqualEvent () {
-    if (numberOne.length == 0 || numberTwo.length == 0) {
-        operator = "";
+    if (numberMarker == 1 || operator == "") {
         return;
     };
     let num1 = arrToNum(numberOne);
-    let num2 = arrToNum(numberTwo);
-    if (operator == "") {
-        return;
+    if (numberTwo.length == 0) {
+        numberTwo = [...numberOne];
     };
-    let resultNumber = calculate(num1, num2, operator);
-    displayNumber(resultNumber);
-    numberOne = numToArr(resultNumber);
-    numberTwo = [];
+    let num2 = arrToNum(numberTwo);
+    let result = calculate(num1, num2, operator);
+    displayNumber(result);
+    numberOne = numToArr(result);
+    numberMarker = 2;
     operator = "";
-    numberMarker = 1;
+    signDisplay.textContent = operator;
+    numberTwo = [];
     return;
-}
+};
