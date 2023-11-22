@@ -1,13 +1,15 @@
 // Global constants and variables
 const numberOfDigits = 10; 
 const numberDisplay = document.getElementById("number_display");
+const signDisplay = document.getElementById("sign_display");
+
 var numberOne = [];
 var numberTwo = [];
 var numberInputArray = [];
 var numberMarker = 1; // shows what number we are working with, One or Two
 var operator = "";
 // var result = null;
-var memory = null;
+// var memory = null;
 
 // Add event listeners to digit buttons
 const digitButtons = document.querySelectorAll(".digit");
@@ -125,22 +127,29 @@ function onclickDigitEvent () {
 
 // Operator buttons event function
 function onclickOperatorEvent () {
-    if (this.id == "*=") {
-        if (numberTwo.length != 0) {
-            return;
-        };
-        let number = arrToNum(numberOne);
-        number = calculate(number, 0, "*=");
-        displayNumber(number);
-        numberOne = numToArr(number);
+    if (operator == "") {
+        operator = this.id;
+        numberMarker = 2;
         numberTwo = [];
-        operator = "";
+        signDisplay.textContent = operator;
         return;
     };
+    let num1 = arrToNum(numberOne);
+    if (numberTwo.length == 0) {    // in case user click on opertor button
+        operator = this.id;         // repeatedly, change operator without
+        signDisplay.textContent = operator; // any calculation
+        return;
+    };
+    let num2 = arrToNum(numberTwo);
+    let result = calculate(num1, num2, operator);
+    result = roundNumber(result);
+    displayNumber(result);
+    numberOne = numToArr(result);
     numberTwo = [];
     numberMarker = 2;
     operator = this.id;
-    display.textContent = operator;
+    signDisplay.textContent = operator;
+    return;
 };
 
 // Equal button event function
