@@ -32,6 +32,10 @@ equalButton.addEventListener("click", onclickEqualEvent);
 const clearButton = document.getElementById("clear_button");
 clearButton.addEventListener("click", onclickClearEvent);
 
+// Add event listener to change (+/-) button
+const changeButton = document.getElementById("change_button");
+changeButton.addEventListener("click", onclickChangeEvent);
+
 // Transform array into number
 function arrToNum (array) {
     let string = array.join("");
@@ -188,5 +192,26 @@ function onclickClearEvent() {
     operator = "";
     signDisplay.textContent = operator;
     displayNumber(0);
+    return;
+}
+
+// +/- button event function
+function onclickChangeEvent() {
+    switch (numberMarker) {
+        case 1:
+            if (numberOne.length == 0) {
+                return;
+            };
+            numberOne.unshift("-");
+            displayNumber(arrToNum(numberOne));
+            break;
+        case 2:
+            if (numberTwo.length == 0) {
+                return;
+            };
+            numberTwo.unshift("-");
+            displayNumber(arrToNum(numberTwo));
+            break;
+    };
     return;
 }
