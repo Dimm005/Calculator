@@ -8,8 +8,9 @@ var numberTwo = [];
 var numberInputArray = [];
 var numberMarker = 1; // shows what number we are working with, One or Two
 var operator = "";
-// var result = null;
 // var memory = null;
+
+displayNumber(0); 
 
 // Add event listeners to digit buttons
 const digitButtons = document.querySelectorAll(".digit");
@@ -26,6 +27,10 @@ operatorButtons.forEach((operatorButton) => {
 // Add event listener to equal button
 const equalButton = document.getElementById("equal_button");
 equalButton.addEventListener("click", onclickEqualEvent);
+
+// Add event listener to clear button
+const clearButton = document.getElementById("clear_button");
+clearButton.addEventListener("click", onclickClearEvent);
 
 // Transform array into number
 function arrToNum (array) {
@@ -174,3 +179,14 @@ function onclickEqualEvent () {
     numberTwo = [];
     return;
 };
+
+// Clear button event function
+function onclickClearEvent() {
+    numberOne = [];
+    numberTwo = [];
+    numberMarker = 1;
+    operator = "";
+    signDisplay.textContent = operator;
+    displayNumber(0);
+    return;
+}
