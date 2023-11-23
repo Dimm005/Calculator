@@ -36,6 +36,10 @@ clearButton.addEventListener("click", onclickClearEvent);
 const changeButton = document.getElementById("change_button");
 changeButton.addEventListener("click", onclickChangeEvent);
 
+// Add event listener to Backspace button
+const backspaceButton = document.getElementById("backspace_button");
+backspaceButton.addEventListener("click", onclickBackspaceEvent);
+
 // Transform array into number
 function arrToNum (array) {
     let string = array.join("");
@@ -210,6 +214,27 @@ function onclickChangeEvent() {
                 return;
             };
             numberTwo.unshift("-");
+            displayNumber(arrToNum(numberTwo));
+            break;
+    };
+    return;
+}
+
+// Backspace button event function
+function onclickBackspaceEvent() {
+    switch (numberMarker) {
+        case 1:
+            if (numberOne.length == 0) {
+                return;
+            };
+            numberOne.pop();
+            displayNumber(arrToNum(numberOne));
+            break;
+        case 2:
+            if (numberTwo.length == 0) {
+                return;
+            };
+            numberTwo.pop();
             displayNumber(arrToNum(numberTwo));
             break;
     };

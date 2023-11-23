@@ -45,14 +45,16 @@ main {
     width: 460px;
     border: 1px solid black;
     border-radius: 5px;
-    height: 100px;
-    padding: 5px;
+    height: 110px;
+    padding: 10px;
     font-size: 80px;
     font-weight: 800;
     text-align: right;
 }
 
 #keyboard {
+    width: 100%;
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -62,16 +64,26 @@ main {
 }
 
 .button {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     /* display: inline; */
     margin: 20px;
-    padding: 10px;
+    padding: 20px 10px 10px 10px;
     border: 1px solid black;
-    border-radius: 3px;
+    border-radius: 50%;
     text-align: center;
 }
 
+.big {
+    height: 100px;
+    width: 100px;
+    padding: 40px 10px 10px 10px;
+}
+
+#backspace_button {
+    margin-left: 0px;
+}
+
 #equal_button {
-    height: 140px;
+    margin-right: 0px;
 }
