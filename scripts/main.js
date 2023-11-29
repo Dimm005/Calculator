@@ -40,6 +40,9 @@ changeButton.addEventListener("click", onclickChangeEvent);
 const backspaceButton = document.getElementById("backspace_button");
 backspaceButton.addEventListener("click", onclickBackspaceEvent);
 
+// Add keyboard event lictener
+document.addEventListener("keyup", onKeyEvent);
+
 // Transform array into number
 function arrToNum (array) {
     let string = array.join("");
@@ -240,3 +243,69 @@ function onclickBackspaceEvent() {
     };
     return;
 }
+
+// Keyboard keyup event function
+function onKeyEvent(event) {
+    let key = event.key;
+    if (key == "Enter") {
+        onclickEqualEvent();
+        return;
+    };
+    if (key == "Backspace") {
+        onclickBackspaceEvent();
+        return;
+    };
+    if (key.toLowerCase() == "c") {
+        onclickClearEvent();
+        return;
+    }
+    if  (key.match(/[0-9]/)) {
+        switch (numberMarker) {
+            case 1:
+                if (numberOne.length < numberOfDigits - 1) {
+                    if (numberOne[0] == "0") {
+                        numberOne.shift();
+                    };
+                    numberOne.push(key);
+                };
+                displayNumber(arrToNum(numberOne));
+                break;
+            case 2:
+                if (numberTwo.length < numberOfDigits - 1) {
+                    if (numberTwo[0] == "0") {
+                        numberTwo.shift();
+                    };
+                    numberTwo.push(key)
+                };
+                displayNumber(arrToNum(numberTwo));
+                break;
+        };
+        return;
+    };
+    if (key.match(/[\+\-\*\//]/)) {
+        if (operator == "") {
+            operator = key;
+            numberMarker = 2;
+            numberTwo = [];
+            signDisplay.textContent = operator;
+            return;
+        };
+        let num1 = arrToNum(numberOne);
+        if (numberTwo.length == 0) {    // in case user click on opertor button
+            operator = key;         // repeatedly, change operator without
+            signDisplay.textContent = operator; // any calculation
+            return;
+        };
+        let num2 = arrToNum(numberTwo);
+        let result = calculate(num1, num2, operator);
+        result = roundNumber(result);
+        displayNumber(result);
+        numberOne = numToArr(result);
+        numberTwo = [];
+        numberMarker = 2;
+        operator = key;
+        signDisplay.textContent = operator;
+        return;
+    };
+    return;
+};
