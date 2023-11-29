@@ -22,6 +22,9 @@ a:hover  {
 }
 
 /* Styles */
+body {
+    background-color: #8FA395;
+}
 
 main {
     display: flex;
@@ -30,6 +33,7 @@ main {
     justify-content: center;
     width: 100%;
     font-family: Orbitron, Courier;
+    color: #0C2112;
 }
 
 #calculator {
@@ -41,17 +45,21 @@ main {
     width: 540px;
     padding: 20px;
     margin-top: 60px;
+    background-color: #748779;
+    box-shadow: 20px 20px 10px #17241B;
 }
 
 #display {
     width: 460px;
     border: 4px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
     height: 110px;
     padding: 10px;
-    font-size: 55px;
+    font-size: 50px;
     font-weight: 800;
     text-align: right;
+    background-color: #8FA395;
+    letter-spacing: 3px;
 }
 
 #keyboard {
